@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gp2">
 
-    <!-- Add the RECORD_AUDIO permission here -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:label="gp2"

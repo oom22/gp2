@@ -5,7 +5,7 @@ import 'package:gp2/personal_page.dart';
 import 'ai_assistant_page.dart';
 
 class StatisticsPage extends StatefulWidget {
-  const StatisticsPage({Key? key}) : super(key: key);
+  const StatisticsPage({super.key});
 
   @override
   State<StatisticsPage> createState() => _StatisticsPageState();

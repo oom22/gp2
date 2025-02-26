@@ -7,7 +7,7 @@ import 'ai_assistant_page.dart'; // For AiAssistantPage
 import 'calendar_page.dart'; // For CalendarPage
 
 class PersonalPage extends StatefulWidget {
-  const PersonalPage({Key? key}) : super(key: key);
+  const PersonalPage({super.key});
 
   @override
   State<PersonalPage> createState() => _PersonalPageState();

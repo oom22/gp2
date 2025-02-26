@@ -108,12 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
         // Remove "const" so we can use asset images
-        items: [
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_outlined),
             label: 'statistics',
           ),
@@ -126,11 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             label: 'AI assestant',
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
             label: 'calendar',
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Info',
           ),
