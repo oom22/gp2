@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   #speech_to_text: ^5.4.0
+  table_calendar: ^3.0.8
   flutter:
     sdk: flutter
 

@@ -3,90 +3,63 @@ import 'package:gp2/ai_assistant_page.dart';
 import 'package:gp2/personal_page.dart';
 import 'main.dart';
 import 'statistics_page.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({super.key});
+  const CalendarPage({Key? key}) : super(key: key);
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  // Start on index 3 to highlight the "calendar" item by default.
-  int _selectedIndex = 3;
+  // Track currently focused day and selected day
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+
+  // Example events map, or fetch from DB
+  final Map<DateTime, List<String>> _events = {
+    DateTime.utc(2023, 3, 14): ['Meeting', 'Study'],
+    DateTime.utc(2023, 3, 15): ['Doctor appointment'],
+  };
+
+  List<String> _getTasksForDay(DateTime day) {
+    return _events[DateTime.utc(day.year, day.month, day.day)] ?? [];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar Page'),
-        backgroundColor: Colors.blue,
+        title: const Text('My Calendar'),
       ),
-      body: const Center(
-        child: Text(
-          'Hello! This is the Calendar page.',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.fixed, // All five buttons show labels
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          // If user taps the Home button (index 0), go to MyHomePage
-          if (index == 0) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const MyHomePage(),
-              ),
-            );
-            // If user taps Statistics (index 1), go to StatisticsPage
-          } else if (index == 1) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const StatisticsPage(),
-              ),
-            );
-          } else if (index == 2) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const AiAssistantPage(),
-              ),
-            );
-          } else if (index == 4) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const PersonalPage(),
-              ),
-            );
-          }
-        },
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      body: Column(
+        children: [
+          // The TableCalendar widget
+          TableCalendar(
+            focusedDay: _focusedDay,
+            firstDay: DateTime(2022),
+            lastDay: DateTime(2030),
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+              });
+            },
+            eventLoader: _getTasksForDay,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_outlined),
-            label: 'statistics',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/robot_icon.png',
-              width: 50,
-              height: 50,
+
+          // Display tasks for the currently selected day
+          const SizedBox(height: 16),
+          Expanded(
+            child: ListView(
+              children: _getTasksForDay(_selectedDay ?? _focusedDay)
+                  .map((task) => ListTile(
+                        title: Text(task),
+                      ))
+                  .toList(),
             ),
-            label: 'AI assistant',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'calendar',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Info',
           ),
         ],
       ),

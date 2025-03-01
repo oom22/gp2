@@ -15,8 +15,9 @@ class AiAssistantPage extends StatefulWidget {
 class _AiAssistantPageState extends State<AiAssistantPage> {
   // // Speech-to-text fields (commented out to disable microphone usage)
   // late stt.SpeechToText _speech;
-  bool _isListening = false; // We'll keep this, but it no longer toggles mic
-  String _transcribedText = '';
+  final bool _isListening =
+      false; // We'll keep this, but it no longer toggles mic
+  final String _transcribedText = '';
 
   // Bottom nav index
   int _selectedIndex = 2; // AI Assistant tab by default
